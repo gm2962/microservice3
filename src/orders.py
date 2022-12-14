@@ -29,7 +29,6 @@ class OrdersResource:
         cur = conn.cursor()
         res = cur.execute(sql)
         result = cur.fetchone()
-
         return result
 
     @staticmethod
