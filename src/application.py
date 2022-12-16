@@ -6,12 +6,15 @@ from users import UsersResource
 from products import ProductsResource
 
 # Create the Flask application object.
-app = Flask(__name__)
+application = Flask(__name__)
 
-CORS(app)
+CORS(application)
 
+@application.route("/")
+def landing():
+    return "Welcome to microservice #3"
 
-@app.route("/orders", methods=["GET"])
+@application.route("/orders", methods=["GET"])
 def get_all_orders():
     result = OrdersResource.get_orders()
 
@@ -22,7 +25,7 @@ def get_all_orders():
 
     return rsp
 
-@app.route("/orders/<order_id>", methods=["GET"])
+@application.route("/orders/<order_id>", methods=["GET"])
 def get_order_by_id(order_id):
     result = OrdersResource.get_user_by_id(order_id)
 
@@ -33,7 +36,7 @@ def get_order_by_id(order_id):
 
     return rsp
 
-@app.route("/users", methods=["GET"])
+@application.route("/users", methods=["GET"])
 def get_all_users():
     result = UsersResource.get_users()
 
@@ -44,7 +47,7 @@ def get_all_users():
 
     return rsp
 
-@app.route("/users/<user_id>", methods=["GET"])
+@application.route("/users/<user_id>", methods=["GET"])
 def get_user_by_id(user_id):
     result = UsersResource.get_user_by_id(user_id)
 
@@ -55,7 +58,7 @@ def get_user_by_id(user_id):
 
     return rsp
 
-@app.route("/products", methods=["GET"])
+@application.route("/products", methods=["GET"])
 def get_all_products():
     result = ProductsResource.get_orders()
 
@@ -66,7 +69,7 @@ def get_all_products():
 
     return rsp
 
-@app.route("/products/<product_id>", methods=["GET"])
+@application.route("/products/<product_id>", methods=["GET"])
 def get_product_by_id(product_id):
     result = ProductsResource.get_product_by_id(product_id)
 
@@ -79,4 +82,4 @@ def get_product_by_id(product_id):
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5013)
+    application.run(host="0.0.0.0", port=5013)
