@@ -1,4 +1,5 @@
-from flask import Flask, Response, request, redirect, session
+from flask import Flask, Response, request, redirect, session, render_template_string
+from flask.templating import render_template
 import json
 from flask_cors import CORS
 from orders import OrdersResource
@@ -7,12 +8,11 @@ from products import ProductsResource
 
 # Create the Flask application object.
 application = Flask(__name__)
-
 CORS(application)
 
 @application.route("/")
 def landing():
-    return "Welcome to microservice #3"
+    return json.dumps({"msg": "Connected to microservice3"})
 
 @application.route("/orders", methods=["GET"])
 def get_all_orders():
@@ -27,7 +27,7 @@ def get_all_orders():
 
 @application.route("/orders/<order_id>", methods=["GET"])
 def get_order_by_id(order_id):
-    result = OrdersResource.get_user_by_id(order_id)
+    result = OrdersResource.get_order_by_id(order_id)
 
     if result:
         rsp = Response(json.dumps(result), status=200, content_type="application.json")
@@ -60,7 +60,7 @@ def get_user_by_id(user_id):
 
 @application.route("/products", methods=["GET"])
 def get_all_products():
-    result = ProductsResource.get_orders()
+    result = ProductsResource.get_products()
 
     if result:
         rsp = Response(json.dumps(result), status=200, content_type="application.json")

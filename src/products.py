@@ -23,7 +23,7 @@ class ProductsResource:
 
 
     @staticmethod
-    def get_orders():
+    def get_products():
         sql = "SELECT * FROM commerce3.products"
         conn = ProductsResource._get_connection()
         cur = conn.cursor()

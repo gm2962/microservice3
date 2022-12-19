@@ -28,7 +28,7 @@ class OrdersResource:
         conn = OrdersResource._get_connection()
         cur = conn.cursor()
         res = cur.execute(sql)
-        result = cur.fetchone()
+        result = list(cur.fetchall())
         return result
 
     @staticmethod
