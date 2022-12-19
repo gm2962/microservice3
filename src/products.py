@@ -42,3 +42,14 @@ class ProductsResource:
         result = cur.fetchone()
 
         return result
+
+    @staticmethod
+    def create_product(product_id, name, category, price):
+        try:
+            sql = f"INSERT INTO commerce3.products (`product_id`, `name`, `category`, `price`) VALUES (%s, %s, %s, %s)"
+            conn = ProductsResource._get_connection()
+            cur = conn.cursor()
+            cur.execute(sql, (product_id, name, category, price))
+        except Exception:
+            return 0
+        return 1

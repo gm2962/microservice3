@@ -81,5 +81,22 @@ def get_product_by_id(product_id):
     return rsp
 
 
+@application.route("/create_product", methods=["POST"])
+def create_product():
+    data = json.loads(request.data)
+    print(json.dumps(data))
+
+    product_id = data["product_id"]
+    name = data["name"]
+    category = data["category"]
+    price = data["price"]
+    print(f"Creating product {product_id} : {name}")
+    if not ProductsResource.create_product(product_id, name, category, price):
+        Response("Unable to add data", status=201, content_type="text/plain")
+
+    return redirect(f'/products/{product_id}')
+
+
+
 if __name__ == "__main__":
     application.run(host="0.0.0.0", port=5013)
